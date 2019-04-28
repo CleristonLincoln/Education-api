@@ -52,14 +52,13 @@ public class StudentProjection {
 		this.active = active;
 	}
 
-	
 
-	public StudentProjection(Long id, String name, String shortname) {
-		this.id = id;
-		this.name = name;
-		this.shortname = shortname;
-	}
-	
+//	public StudentProjection(Long id, String name, String shortname) {
+//		this.id = id;
+//		this.name = name;
+//		this.shortname = shortname;
+//	}
+//	
 
 	
 

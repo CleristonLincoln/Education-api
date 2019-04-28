@@ -67,10 +67,10 @@ public class StudentResource {
 	}
 	
 	
-	@GetMapping(params = "shortresume")
-	public Page<StudentProjection> getStudentsPerSchool(StudentFilter studentFilter, Pageable pageable) {
-		return repository.filterStudentsPerSchool(studentFilter, pageable);
-	}
+//	@GetMapping(params = "shortresume")
+//	public Page<StudentProjection> getStudentsPerSchool(StudentFilter studentFilter, Pageable pageable) {
+//		return repository.filterStudentsPerSchool(studentFilter, pageable);
+//	}
 
 	
 	@PostMapping

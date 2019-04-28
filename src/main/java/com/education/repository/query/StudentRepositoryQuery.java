@@ -14,6 +14,6 @@ public interface StudentRepositoryQuery {
 	
 	Page<StudentProjection> shortFilter(StudentFilter studentFilter, Pageable pageable);
 
-	Page<StudentProjection> filterStudentsPerSchool(StudentFilter studentFilter, Pageable pageable);
+//	Page<StudentProjection> filterStudentsPerSchool(StudentFilter studentFilter, Pageable pageable);
 
 }
