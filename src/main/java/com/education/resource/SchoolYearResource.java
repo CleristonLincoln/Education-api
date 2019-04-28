@@ -23,7 +23,7 @@ import com.education.model.score.SchoolYear;
 import com.education.repository.SchoolYearRepository;
 import com.education.repository.filter.SchoolYearFilter;
 import com.education.service.SchoolYearService;
-import com.education.service.exception.SchoolIsExist;
+import com.education.service.exception.SchoolInexstOrInative;
 import com.education.service.exception.SchoolYearException;
 
 
@@ -58,8 +58,8 @@ public class SchoolYearResource {
 	}
 	
 	
-	@ExceptionHandler({SchoolIsExist.class})
-	public ResponseEntity<List<Erro>> schoolInexist( SchoolIsExist ex) {
+	@ExceptionHandler({SchoolInexstOrInative.class})
+	public ResponseEntity<List<Erro>> schoolInexist( SchoolInexstOrInative ex) {
 		String messageUser = "Escola não existe";
 		String messageDeveloper = ex.toString();
 		

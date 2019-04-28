@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.education.model.people.School;
 import com.education.repository.SchoolRepository;
-import com.education.service.exception.SchoolIsExist;
+import com.education.service.exception.SchoolInexstOrInative;
 
 @Service
 public class SchoolService {
@@ -25,7 +25,7 @@ public class SchoolService {
 		School cnpj = repository.findByCnpj(school.getCnpj());
 
 		if (ie != null || cnpj != null) {
-			throw new SchoolIsExist();
+			throw new SchoolInexstOrInative();
 		}
 
 		return school;

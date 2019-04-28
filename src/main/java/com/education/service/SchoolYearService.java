@@ -10,7 +10,7 @@ import com.education.model.people.School;
 import com.education.model.score.SchoolYear;
 import com.education.repository.SchoolRepository;
 import com.education.repository.SchoolYearRepository;
-import com.education.service.exception.SchoolIsExist;
+import com.education.service.exception.SchoolInexstOrInative;
 import com.education.service.exception.SchoolYearException;
 
 @Service
@@ -31,7 +31,7 @@ public class SchoolYearService {
 		schoolYear.setActive(true);
 		
 		if (!school.isPresent()) {
-			throw new SchoolIsExist();
+			throw new SchoolInexstOrInative();
 		}
 		
 		ferifyIfYearDupliced(schoolYear);

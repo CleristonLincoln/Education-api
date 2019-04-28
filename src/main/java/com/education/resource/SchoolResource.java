@@ -33,7 +33,7 @@ import com.education.repository.SchoolRepository;
 import com.education.repository.filter.SchoolFilter;
 import com.education.repository.projection.SchoolProjection;
 import com.education.service.SchoolService;
-import com.education.service.exception.SchoolIsExist;
+import com.education.service.exception.SchoolInexstOrInative;
 
 @RestController
 @RequestMapping("/school")
@@ -89,8 +89,8 @@ public class SchoolResource {
 	}
 	
 	
-	@ExceptionHandler({ SchoolIsExist.class })
-	public ResponseEntity<List<Erro>> SchoolIsExist(SchoolIsExist ex) {
+	@ExceptionHandler({ SchoolInexstOrInative.class })
+	public ResponseEntity<List<Erro>> SchoolIsExist(SchoolInexstOrInative ex) {
 
 		String messageUser = "Empresa já cadastrada";
 		String messageDeveloper = ex.toString();

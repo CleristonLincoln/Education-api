@@ -1,5 +1,7 @@
 package com.education.service;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -7,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.education.model.people.School;
 import com.education.model.people.Student;
+import com.education.repository.SchoolRepository;
 import com.education.repository.StudentRepository;
+import com.education.service.exception.SchoolInexstOrInative;
 import com.education.service.exception.StudentCpfException;
 import com.education.service.exception.StudentRgException;
 
@@ -16,6 +21,7 @@ import com.education.service.exception.StudentRgException;
 public class StudentService {
 
 	@Autowired private StudentRepository repository;
+	@Autowired private SchoolRepository schoolRepository;
 
 
 	public Student saveStudent(@Valid Student student) {
@@ -26,10 +32,22 @@ public class StudentService {
 		
 		validCpfIsExist(student); // valida se cpf duplicado
 		validRgIsExist(student); // valida se rg duplicado
+		validIsSchoolExist(student);
 		
 		return repository.save(student);
 	}
 	
+
+	private void validIsSchoolExist(Student student) {
+		Long idSchool = student.getSchool().getId();
+		Optional<School> getSchool = schoolRepository.findById(idSchool);
+		
+		if (getSchool.isEmpty()) {
+			throw new SchoolInexstOrInative();
+		}
+		
+	}
+
 
 	// valida se o aluno tem observação.
 	private Boolean verifyIfNote(Student student) {

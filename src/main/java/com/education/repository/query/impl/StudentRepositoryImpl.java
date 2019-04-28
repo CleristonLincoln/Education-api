@@ -20,7 +20,6 @@ import com.education.model.adress.City_;
 import com.education.model.adress.Neighborhood_;
 import com.education.model.adress.State_;
 import com.education.model.adress.Street_;
-import com.education.model.people.School;
 import com.education.model.people.Student;
 import com.education.model.people.Student_;
 import com.education.repository.filter.StudentFilter;

@@ -2,6 +2,7 @@ package com.education.resource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +32,7 @@ import com.education.repository.StudentRepository;
 import com.education.repository.filter.StudentFilter;
 import com.education.repository.projection.StudentProjection;
 import com.education.service.StudentService;
+import com.education.service.exception.SchoolInexstOrInative;
 import com.education.service.exception.StudentCpfException;
 import com.education.service.exception.StudentRgException;
 
@@ -39,7 +40,7 @@ import com.education.service.exception.StudentRgException;
 @RequestMapping("/student")
 public class StudentResource {
 
-	@Autowired 	private StudentRepository repository;
+	@Autowired private StudentRepository repository;
 	@Autowired private StudentService service;
 	@Autowired private ApplicationEventPublisher publisher;
 
@@ -59,10 +60,10 @@ public class StudentResource {
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_GET_STUDENTID') and #oauth2.hasScoe('read')")
-	public ResponseEntity<Student> getStudentPerId(@PathVariable Long id) {
-		Student student = repository.findById(id).get();
+	public ResponseEntity<Optional<Student>> getStudentPerId(@PathVariable Long id) {
+		Optional<Student> student = repository.findById(id);
 		
-		return student != null ? ResponseEntity.ok(student) : ResponseEntity.notFound().build();
+		return student.isPresent() ? ResponseEntity.ok(student) : ResponseEntity.notFound().build();
 	}
 	
 	
@@ -117,7 +118,6 @@ public class StudentResource {
 		List<Erro> erros = Arrays.asList(new Erro(messageUser, messageDeveloper));
 		return ResponseEntity.badRequest().body(erros);
 	}
-	
 
 	@ExceptionHandler({StudentRgException.class})
 	public ResponseEntity<List<Erro>> studentRgIsExist( StudentRgException ex) {
@@ -129,6 +129,14 @@ public class StudentResource {
 		return ResponseEntity.badRequest().body(erros);
 	}
 	
-	
+	@ExceptionHandler({SchoolInexstOrInative.class})
+	public ResponseEntity<List<Erro>> schoolInexist( SchoolInexstOrInative ex) {
+		String messageUser = "Escola não existe ou esta inativa";
+		String messageDeveloper = ex.toString();
+		
+		List<Erro> erros = Arrays.asList(new Erro(messageUser, messageDeveloper));
+		
+		return ResponseEntity.badRequest().body(erros);
+	}
 
 }
