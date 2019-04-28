@@ -31,6 +31,7 @@ import com.education.model.people.Student;
 import com.education.repository.StudentRepository;
 import com.education.repository.filter.StudentFilter;
 import com.education.repository.projection.StudentProjection;
+import com.education.repository.projection.StudentProjectionShort;
 import com.education.service.StudentService;
 import com.education.service.exception.SchoolInexstOrInative;
 import com.education.service.exception.StudentCpfException;
@@ -67,10 +68,10 @@ public class StudentResource {
 	}
 	
 	
-//	@GetMapping(params = "shortresume")
-//	public Page<StudentProjection> getStudentsPerSchool(StudentFilter studentFilter, Pageable pageable) {
-//		return repository.filterStudentsPerSchool(studentFilter, pageable);
-//	}
+	@GetMapping(params = "shortresume")
+	public Page<StudentProjectionShort> getStudentsPerSchool(StudentFilter studentFilter, Pageable pageable) {
+		return repository.filterStudentsPerSchool(studentFilter, pageable);
+	}
 
 	
 	@PostMapping

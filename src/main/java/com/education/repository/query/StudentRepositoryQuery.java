@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import com.education.model.people.Student;
 import com.education.repository.filter.StudentFilter;
 import com.education.repository.projection.StudentProjection;
+import com.education.repository.projection.StudentProjectionShort;
 
 public interface StudentRepositoryQuery {
 
@@ -14,6 +15,6 @@ public interface StudentRepositoryQuery {
 	
 	Page<StudentProjection> shortFilter(StudentFilter studentFilter, Pageable pageable);
 
-//	Page<StudentProjection> filterStudentsPerSchool(StudentFilter studentFilter, Pageable pageable);
+	Page<StudentProjectionShort> filterStudentsPerSchool(StudentFilter studentFilter, Pageable pageable);
 
 }

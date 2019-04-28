@@ -2,10 +2,12 @@ package com.education.repository.projection;
 
 import java.time.LocalDate;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class StudentProjection {
 
 	private Long id;
@@ -13,22 +15,22 @@ public class StudentProjection {
 	private String shortname;
 	private String cpf;
 	private LocalDate birthday;
-	
+
 	private String complementHome;
 	private String numberHome;
-	
+
 	private Long streetId;
 	private String streetName;
-	
+
 	private Long neighborhoodId;
 	private String neighborhoodName;
-	
+
 	private Long cityId;
 	private String cityName;
-	
+
 	private Long stateId;
 	private String stateName;
-	
+
 	private Boolean active;
 
 	public StudentProjection(Long id, String name, String shortName, String cpf, LocalDate birthday,
@@ -51,16 +53,6 @@ public class StudentProjection {
 		this.stateName = stateName;
 		this.active = active;
 	}
-
-
-//	public StudentProjection(Long id, String name, String shortname) {
-//		this.id = id;
-//		this.name = name;
-//		this.shortname = shortname;
-//	}
-//	
-
-	
 
 	
 }
