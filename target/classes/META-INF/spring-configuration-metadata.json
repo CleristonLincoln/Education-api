@@ -1,0 +1,54 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty",
+      "name": "education",
+      "type": "com.education.config.property.EducationApiProperty"
+    },
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty",
+      "name": "education.s3",
+      "sourceMethod": "public com.education.config.property.EducationApiProperty.S3 getS3() ",
+      "type": "com.education.config.property.EducationApiProperty$S3"
+    },
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty",
+      "name": "education.security",
+      "sourceMethod": "public com.education.config.property.EducationApiProperty.Security getSecurity() ",
+      "type": "com.education.config.property.EducationApiProperty$Security"
+    }
+  ],
+  "properties": [
+    {
+      "name": "aws.access_key_id",
+      "description": "A description for 'aws.access_key_id'",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty",
+      "name": "education.origin-enable",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty$S3",
+      "name": "education.s3.access-key-id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty$S3",
+      "name": "education.s3.bucket",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty$S3",
+      "name": "education.s3.secret-access-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.education.config.property.EducationApiProperty$Security",
+      "name": "education.security.enable-https",
+      "type": "java.lang.Boolean"
+    }
+  ]
+}
