@@ -4,6 +4,7 @@ public enum TypeAdress {
 
 	RUA("Rua"),
 	AVENIDA("Avenida"),
+	TRAVESSA("Travessa"),
 	PRACA("Praça");
 
 	public final String type;

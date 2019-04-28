@@ -14,7 +14,12 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 
+import com.education.model.adress.City_;
+import com.education.model.adress.Neighborhood_;
+import com.education.model.adress.Street_;
+import com.education.model.people.School_;
 import com.education.model.score.SchoolYear;
 import com.education.model.score.SchoolYear_;
 import com.education.repository.filter.SchoolYearFilter;
@@ -53,7 +58,11 @@ public class SchoolYearRepositoryImpl implements SchoolYearRepositoryQuery {
 		
 		criteria.select(builder.construct(SchoolYearProjection.class, 
 				root.get(SchoolYear_.id),
-				root.get(SchoolYear_.currentYear)
+				root.get(SchoolYear_.currentYear),
+				root.get(SchoolYear_.dateStart),
+				root.get(SchoolYear_.dateFinish),
+				root.get(SchoolYear_.scoreAverange),
+				root.get(SchoolYear_.active)
 				));
 		
 		
@@ -68,7 +77,68 @@ public class SchoolYearRepositoryImpl implements SchoolYearRepositoryQuery {
 
 	private Predicate[] createFilter(SchoolYearFilter schoolYearFilter, CriteriaBuilder builder,
 			Root<SchoolYear> root) {
+		
 		List<Predicate> predicates = new ArrayList<>();
+		
+		if (!StringUtils.isEmpty(schoolYearFilter.getCurrentYear())) {
+			predicates.add(
+					builder.equal(
+							root.get(SchoolYear_.currentYear), 
+							schoolYearFilter.getCurrentYear()
+							));
+		}
+		
+		if (!StringUtils.isEmpty(schoolYearFilter.getDateStartFrom())) {
+			predicates.add(
+					builder.greaterThanOrEqualTo(
+							root.get(SchoolYear_.dateStart), 
+							schoolYearFilter.getDateStartFrom()
+							));
+		}
+		
+		if (!StringUtils.isEmpty(schoolYearFilter.getDateStartTo())) {
+			predicates.add(
+					builder.lessThanOrEqualTo(
+							root.get(SchoolYear_.dateStart),
+							schoolYearFilter.getDateStartTo()
+							));
+		}
+	
+		if (!StringUtils.isEmpty(schoolYearFilter.getDateFinishFrom())) {
+			predicates.add(
+					builder.greaterThanOrEqualTo(
+							root.get(SchoolYear_.dateFinish), 
+							schoolYearFilter.getDateFinishFrom()
+							));
+		}
+		
+		if (!StringUtils.isEmpty(schoolYearFilter.getDateFinishTo())) {
+			predicates.add(
+					builder.lessThanOrEqualTo(
+							root.get(SchoolYear_.dateFinish), 
+							schoolYearFilter.getDateFinishTo()
+							));
+		}
+		
+		if (!StringUtils.isEmpty(schoolYearFilter.getSchoolId())) {
+			predicates.add(
+					builder.equal(
+							root.get(SchoolYear_.school).get(School_.id), 
+							schoolYearFilter.getSchoolId()
+							));
+		}
+		
+		if (!StringUtils.isEmpty(schoolYearFilter.getSchoolCityId())) {
+			predicates.add(
+					builder.equal(
+						root.get(SchoolYear_.school).get(School_.street)
+							.get(Street_.neighborhood).get(Neighborhood_.city)
+							.get(City_.id), 
+						schoolYearFilter.getSchoolCityId()
+					));
+		}
+	
+		
 
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}

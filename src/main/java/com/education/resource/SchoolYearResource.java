@@ -22,6 +22,7 @@ import com.education.exceptionHandle.SchoolExceptionHandle.Erro;
 import com.education.model.score.SchoolYear;
 import com.education.repository.SchoolYearRepository;
 import com.education.repository.filter.SchoolYearFilter;
+import com.education.repository.projection.SchoolYearProjection;
 import com.education.service.SchoolYearService;
 import com.education.service.exception.SchoolInexstOrInative;
 import com.education.service.exception.SchoolYearException;
@@ -43,6 +44,12 @@ public class SchoolYearResource {
 	@PreAuthorize("hasAuthority('ROLE_GET_SCHOOL_YEAR') and #oauth2.hasScoe('read')")
 	public Page<SchoolYear> getFilterSchoolYear(Pageable pageable, SchoolYearFilter schoolYearFilter) {
 		return repository.filterEntity(pageable, schoolYearFilter);
+	}
+	
+	@GetMapping(params ="resume")
+	@PreAuthorize("hasAuthority('ROLE_GET_SCHOOL_YEAR') and #oauth2.hasScoe('read')")
+	public Page<SchoolYearProjection> getShortFilterSchoolYear(Pageable pageable, SchoolYearFilter schoolYearFilter) {
+		return repository.filterShortEntity(schoolYearFilter, pageable);
 	}
 	
 	

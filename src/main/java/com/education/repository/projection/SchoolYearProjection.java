@@ -1,22 +1,23 @@
 package com.education.repository.projection;
 
-import lombok.Getter;
+import java.time.LocalDate;
 
-@Getter
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter @AllArgsConstructor
 public class SchoolYearProjection {
 
 	private Long id;
-	private String year;
+	private LocalDate year;
+	private LocalDate dateStart;
+	private LocalDate dateFinish;
+	private Integer averange;
+	private Boolean active;
 	
-	
-	public SchoolYearProjection(Long id, String year) {
-		super();
-		this.id = id;
-		this.year = year;
-	}
 
-
-	
-	
+		
 	
 }
+
