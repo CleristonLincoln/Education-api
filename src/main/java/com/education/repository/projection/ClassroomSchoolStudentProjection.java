@@ -1,26 +1,29 @@
 package com.education.repository.projection;
 
-import com.education.model.people.Student;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
 public class ClassroomSchoolStudentProjection {
 	
-	private String nome;
+
+	private Long studentId;
 	
-	private Student student;
+	private String studentName;
+
 	
-	
-	public ClassroomSchoolStudentProjection(String nome, Student student) {
-		this.nome = nome;
-		this.student = student;
-	
+	public ClassroomSchoolStudentProjection(Long studentId, String studentName) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
 	}
-	
-	
-	
+
+
+	public ClassroomSchoolStudentProjection(Long studentId) {
+		super();
+		this.studentId = studentId;
+	}
+
 	
 	
 }

@@ -24,6 +24,7 @@ import com.education.model.ClassroomSchool;
 import com.education.repository.ClassroomSchoolRepository;
 import com.education.repository.filter.ClassroomSchoolFilter;
 import com.education.repository.projection.ClassroomSchoolProjection;
+import com.education.repository.projection.ClassroomSchoolStudentProjection;
 import com.education.service.ClassroomSchoolService;
 
 @RestController
@@ -34,6 +35,7 @@ public class ClassroomSchoolResource {
 	@Autowired private ApplicationEventPublisher publisher;
 	@Autowired private ClassroomSchoolService service;
 
+	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_GET_CLASSROOM_SCOOL') and #oauth2.hasScope('read')")
 	public Page<ClassroomSchool> getFilterClassroomSchool(ClassroomSchoolFilter classroomSchoolFilter,
@@ -41,12 +43,20 @@ public class ClassroomSchoolResource {
 		return repository.filter(classroomSchoolFilter, pageable);
 	}
 
+	
 	@GetMapping(params = "resume")
 	@PreAuthorize("hasAuthority('ROLE_GET_CLASSROOM_SCOOL') and #oauth2.hasScope('read')")
 	public Page<ClassroomSchoolProjection> getShortFilter(ClassroomSchoolFilter classroomSchoolFilter,
 			Pageable pageable) {
 		return repository.shortFilter(classroomSchoolFilter, pageable);
 	}
+	
+	
+	@GetMapping(params = "student")
+	public Page<ClassroomSchoolStudentProjection> getMethodName(ClassroomSchoolFilter classroomSchoolFilter, Pageable pageable) {
+		return repository.filterClassroomSchoolStudent(classroomSchoolFilter, pageable);
+	}
+
 
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_POST_CLASSROOM_SCOOL') and #oauth2.hasScope('write')")
@@ -57,17 +67,13 @@ public class ClassroomSchoolResource {
 		return ResponseEntity.status(HttpStatus.CREATED).body(save);
 	}
 
+	
 	@DeleteMapping
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void deleteClassroomSchool(@PathVariable Long id) {
-		
-		ClassroomSchool classroomSchool = repository.findById(id).get();
-		
-		if (classroomSchool != null) {
-			repository.deleteById(id);
-		}
-		
-		// classroomNotFoundException;
+		repository.deleteById(id);
 	}
 
+	
+	
 }

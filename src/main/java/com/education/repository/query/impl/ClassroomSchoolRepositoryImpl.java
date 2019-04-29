@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -20,6 +21,7 @@ import com.education.model.ClassroomSchool;
 import com.education.model.ClassroomSchool_;
 import com.education.model.Classroom_;
 import com.education.model.people.School_;
+import com.education.model.people.Student_;
 import com.education.model.score.SchoolYear_;
 import com.education.repository.filter.ClassroomSchoolFilter;
 import com.education.repository.projection.ClassroomSchoolProjection;
@@ -28,9 +30,9 @@ import com.education.repository.query.ClassroomSchoolRepositoryQuery;
 
 public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQuery {
 
-	@PersistenceContext
-	EntityManager manager;
+	@PersistenceContext private EntityManager manager;
 
+	
 	@Override
 	public Page<ClassroomSchool> filter(ClassroomSchoolFilter classroomSchoolFilter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -47,6 +49,7 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 
 	}
 
+	
 	@Override
 	public Page<ClassroomSchoolProjection> shortFilter(ClassroomSchoolFilter classroomSchoolFilter, Pageable pageable) {
 
@@ -73,20 +76,55 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 		
 		return new PageImpl<>(query.getResultList(), pageable, total(classroomSchoolFilter));
 	}
+	
+	
+	@Override
+	public Page<ClassroomSchoolStudentProjection> filterClassroomSchoolStudent(
+			ClassroomSchoolFilter classroomSchoolFilter, Pageable pageable) {
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<ClassroomSchoolStudentProjection> criteria = builder.createQuery(ClassroomSchoolStudentProjection.class);
+		Root<ClassroomSchool> root = criteria.from(ClassroomSchool.class);
+		
+		criteria.select(builder.construct(
+				ClassroomSchoolStudentProjection.class
+				, root.join(ClassroomSchool_.student).get(Student_.id)
+				, root.join(ClassroomSchool_.student).get(Student_.name)
+				
+				
+				));
+		
+		Predicate[] predicates = createFilter(builder, root, classroomSchoolFilter);
+		criteria.where(predicates);
+		
+		TypedQuery<ClassroomSchoolStudentProjection> query = manager.createQuery(criteria);
+		addPageRestrict(query, pageable);
+		
+		return new PageImpl<>(query.getResultList(), pageable, total(classroomSchoolFilter));
+	}
+
 
 	private Predicate[] createFilter(CriteriaBuilder builder, Root<ClassroomSchool> root, ClassroomSchoolFilter classroomSchoolFilter) {
 		
 		List<Predicate> predicates = new ArrayList<>();
+		
+		if (!StringUtils.isEmpty(classroomSchoolFilter.getId())) {
+			predicates.add(
+					builder.equal(
+							root.get(ClassroomSchool_.id), 
+							classroomSchoolFilter.getId()
+					));
+		}
 
-//		if (!StringUtils.isEmpty(classroomSchoolFilter.getName())) {
-//			predicates.add(
-//					builder.like(
-//							builder.lower(
-//									root.get(ClassroomSchool_.classRoom.getName())),
-//										"%" + classroomSchoolFilter.getName().toLowerCase() + "%"
-//								));
-//		}
-//		
+		if (!StringUtils.isEmpty(classroomSchoolFilter.getName())) {
+			predicates.add(
+					builder.like(
+							builder.lower(
+									root.get(ClassroomSchool_.classroom.getName())),
+										"%" + classroomSchoolFilter.getName().toLowerCase() + "%"
+								));
+		}
+		
 		if (!StringUtils.isEmpty(classroomSchoolFilter.getClassroomId())) {
 			predicates.add(
 					builder.equal(
@@ -106,6 +144,7 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 
+	
 	private Long total(ClassroomSchoolFilter classroomSchoolFilter) {
 
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -120,6 +159,7 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 		return manager.createQuery(criteria).getSingleResult();
 	}
 
+	
 	private void addPageRestrict(TypedQuery<?> query, Pageable pageable) {
 
 		int paginaAtual = pageable.getPageNumber();
@@ -130,27 +170,5 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 		query.setMaxResults(totalRegistros);
 	}
 
-	@Override
-	public Page<ClassroomSchoolStudentProjection> filterClassroomSchoolStudent(
-			ClassroomSchoolFilter classroomSchoolFilter, Pageable pageable) {
-		
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<ClassroomSchoolStudentProjection> criteria = builder.createQuery(ClassroomSchoolStudentProjection.class);
-		Root<ClassroomSchool> root = criteria.from(ClassroomSchool.class);
-		
-		criteria.select(builder.construct(
-				ClassroomSchoolStudentProjection.class,
-				root.get(ClassroomSchool_.name),
-				root.join(ClassroomSchool_.student)
-				));
-		
-		Predicate[] predicates = createFilter(builder, root, classroomSchoolFilter);
-		criteria.where(predicates);
-		
-		TypedQuery<ClassroomSchoolStudentProjection> query = manager.createQuery(criteria);
-		addPageRestrict(query, pageable);
-		
-		return new PageImpl<>(query.getResultList(), pageable, total(classroomSchoolFilter));
-	}
 
 }

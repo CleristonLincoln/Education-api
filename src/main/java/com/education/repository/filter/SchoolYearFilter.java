@@ -15,12 +15,16 @@ public class SchoolYearFilter {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate currentYear;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateStartFrom;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateStartTo;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateFinishFrom;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateFinishTo;
 	
 	private Long SchoolId;
