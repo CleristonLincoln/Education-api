@@ -57,4 +57,8 @@ public class ScoreAdditional {
 	@JoinColumn(name = "id_school")
 	private School school;
 
+	@ManyToOne
+	@JoinColumn(name="id_type_score")
+	private TypeScore typeScore;
+	
 }

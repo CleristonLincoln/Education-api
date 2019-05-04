@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 
 /*
  * Identifica os tipos, se nota final ou pontos a serem somados
+ * dando nome a nota como: avaliação final, trabalho de casa sobre tiradentes, etc...
  */
 @Data
 @AllArgsConstructor
@@ -33,6 +34,10 @@ public class TypeScore {
 	@Column(name = "sum_or_finally")
 	private Boolean sumOrFinally;
 	
+	/* se sumOrFinally for definido como 0, este atributo será 0 e quando
+	 *	ele for usado em uma nota irá virar 1 e bloquear futuros usos.
+	 * 
+	 */
 	@Column(name = "sum_active")
 	private Boolean sumActive; 
 	

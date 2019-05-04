@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -87,10 +86,9 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 		Root<ClassroomSchool> root = criteria.from(ClassroomSchool.class);
 		
 		criteria.select(builder.construct(
-				ClassroomSchoolStudentProjection.class
-				, root.join(ClassroomSchool_.student).get(Student_.id)
-				, root.join(ClassroomSchool_.student).get(Student_.name)
-				
+					ClassroomSchoolStudentProjection.class
+					, root.join(ClassroomSchool_.student).get(Student_.id)
+					, root.join(ClassroomSchool_.student).get(Student_.name)
 				
 				));
 		
@@ -108,14 +106,7 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 		
 		List<Predicate> predicates = new ArrayList<>();
 		
-		if (!StringUtils.isEmpty(classroomSchoolFilter.getId())) {
-			predicates.add(
-					builder.equal(
-							root.get(ClassroomSchool_.id), 
-							classroomSchoolFilter.getId()
-					));
-		}
-
+	
 		if (!StringUtils.isEmpty(classroomSchoolFilter.getName())) {
 			predicates.add(
 					builder.like(
@@ -140,6 +131,7 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 							classroomSchoolFilter.getSchoolId()
 							));
 		}
+		
 		
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}

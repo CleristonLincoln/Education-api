@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter @Setter
 public class ClassroomSchoolFilter {
 
-	private String id;
+
 	private String name;
 	private Long classroomId;
 	private Long schoolYearId;

@@ -1,5 +1,6 @@
 /*A tabela  SCHOOL_YEAR está na linha 85 em CLASS_BASE*/
 
+
 CREATE TABLE score_semester (
 	id BIGINT(11) AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(20),
@@ -13,9 +14,19 @@ CREATE TABLE score_semester (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+CREATE TABLE type_score (
+	id BIGINT(11) AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(75),
+	sum_or_finally BOOLEAN,
+	
+	id_score_semester BIGINT(11),
+
+	FOREIGN KEY (id_score_semester) REFERENCES score_semester(id)
+)ENGINE=InnoDB DEFAULT CHARSET=UTF8mb4;
+
 CREATE TABLE score (
 	id BIGINT(11) AUTO_INCREMENT PRIMARY KEY,
-	initialScore TINYINT(3),
+	initial_score TINYINT(3),
 	points TINYINT(3),
 	final_score TINYINT(3),
 	situation BOOLEAN,
@@ -28,12 +39,14 @@ CREATE TABLE score (
 	id_teacher BIGINT(11),
 	id_score_semester BIGINT(11),
 	id_school BIGINT(11),
+	id_type_score BIGINT(11),
 	
 	FOREIGN KEY (id_student) REFERENCES student(id),
 	FOREIGN KEY (id_classroom_school) REFERENCES classroom_school(id),
 	FOREIGN KEY (id_teacher) REFERENCES teacher(id),
 	FOREIGN KEY (id_score_semester) REFERENCES score_semester(id),
-	FOREIGN KEY (id_school) REFERENCES school(id)
+	FOREIGN KEY (id_school) REFERENCES school(id),
+		FOREIGN KEY (id_type_score) REFERENCES type_score(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -54,6 +67,7 @@ CREATE TABLE score_semester_result (
 	FOREIGN KEY (id_score_semester) REFERENCES score_semester(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
 CREATE TABLE score_additional (
 	id BIGINT(11) AUTO_INCREMENT PRIMARY KEY,
 	date_score DATE,
@@ -62,19 +76,11 @@ CREATE TABLE score_additional (
 	id_school BIGINT(11),
 	id_student BIGINT(11),
 	id_teacher BIGINT(11),
+	id_type_score BIGINT(11),
 
 	FOREIGN KEY (id_lesson) REFERENCES lesson(id),
 	FOREIGN KEY (id_school) REFERENCES school(id),
 	FOREIGN KEY (id_student) REFERENCES student(id),
-	FOREIGN KEY (id_teacher) REFERENCES teacher(id)
+	FOREIGN KEY (id_teacher) REFERENCES teacher(id),
+	FOREIGN KEY (id_type_score) REFERENCES type_score(id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8mb4;
-
-CREATE TABLE type_score(
-	id BIGINT(11),
-	name VARCHAR(75),
-	
-	id_score_semester BIGINT(11),
-
-	FOREIGN KEY (id_score_semester) REFERENCES score_semester(id)
-)ENGINE=InnoDB DEFAULT CHARSET=UTF8mb4;
-

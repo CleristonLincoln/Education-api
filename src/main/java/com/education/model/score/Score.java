@@ -106,5 +106,8 @@ public class Score {
 			inverseJoinColumns = @JoinColumn(name = "id_score_additional"))
 	private List<ScoreAdditional> scoreAditional;
 
+	@ManyToOne
+	@JoinColumn(name="id_type_score")
+	private TypeScore typeScore;
 
 }

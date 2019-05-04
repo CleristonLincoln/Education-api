@@ -13,17 +13,10 @@ public class ClassroomSchoolStudentProjection {
 
 	
 	public ClassroomSchoolStudentProjection(Long studentId, String studentName) {
-		super();
+	
 		this.studentId = studentId;
 		this.studentName = studentName;
 	}
 
-
-	public ClassroomSchoolStudentProjection(Long studentId) {
-		super();
-		this.studentId = studentId;
-	}
-
-	
 	
 }

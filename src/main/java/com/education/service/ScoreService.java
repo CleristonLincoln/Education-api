@@ -14,34 +14,9 @@ public class ScoreService {
 	
 	public Score saveScore(Score score) {
 
-		Integer average = score.getScoreSemester().getSchoolYear().getScoreAverange();
-	
-		
-		
-		
 		return repository.save(score);
 	}
 
-
-	
-	// facilitar a digitação de notas pelos usuários.
-	private Score scoreLaunch(Score score) {
-
-
-		
-		return  null;
-		
-		
-	}
-		
-	
-	
-	private void scoreSituation(Score score, Integer scoreAverange) {
-
-		
-
-	}
-	
 	
 
 }
