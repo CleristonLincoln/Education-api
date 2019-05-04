@@ -9,20 +9,24 @@
     {
       "sourceType": "com.education.config.property.EducationApiProperty",
       "name": "education.s3",
-      "sourceMethod": "getS3()",
+      "sourceMethod": "public com.education.config.property.EducationApiProperty.S3 getS3() ",
       "type": "com.education.config.property.EducationApiProperty$S3"
     },
     {
       "sourceType": "com.education.config.property.EducationApiProperty",
       "name": "education.security",
-      "sourceMethod": "getSecurity()",
+      "sourceMethod": "public com.education.config.property.EducationApiProperty.Security getSecurity() ",
       "type": "com.education.config.property.EducationApiProperty$Security"
     }
   ],
   "properties": [
     {
+      "name": "aws.access_key_id",
+      "description": "A description for 'aws.access_key_id'",
+      "type": "java.lang.String"
+    },
+    {
       "sourceType": "com.education.config.property.EducationApiProperty",
-      "defaultValue": "http:\/\/localhost:8080",
       "name": "education.origin-enable",
       "type": "java.lang.String"
     },
@@ -33,7 +37,6 @@
     },
     {
       "sourceType": "com.education.config.property.EducationApiProperty$S3",
-      "defaultValue": "cl-education-files",
       "name": "education.s3.bucket",
       "type": "java.lang.String"
     },
@@ -44,7 +47,6 @@
     },
     {
       "sourceType": "com.education.config.property.EducationApiProperty$Security",
-      "defaultValue": false,
       "name": "education.security.enable-https",
       "type": "java.lang.Boolean"
     }
