@@ -22,6 +22,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*
+ * Registra os pontos a serem usados.
+ * 
+ * ex: um trabalho de classe que vale 20 pontos a serem somados futuramente a 
+ * um score.
+ * 
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,6 +40,7 @@ public class ScoreAdditional {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	// data de realização 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "date_score")
 	private LocalDate dateScore;

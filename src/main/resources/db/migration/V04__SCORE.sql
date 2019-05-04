@@ -18,6 +18,7 @@ CREATE TABLE type_score (
 	id BIGINT(11) AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(75),
 	sum_or_finally BOOLEAN,
+	active BOOLEAN,
 	
 	id_score_semester BIGINT(11),
 

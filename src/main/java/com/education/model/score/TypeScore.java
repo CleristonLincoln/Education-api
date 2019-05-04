@@ -8,12 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/*
+/**
  * Identifica os tipos, se nota final ou pontos a serem somados
  * dando nome a nota como: avaliação final, trabalho de casa sobre tiradentes, etc...
  */
@@ -30,16 +31,19 @@ public class TypeScore {
 	
 	private String name;
 	
-	// 0 - pontos para somar a futuras notas, 1 - nota cheia final.
+	// 0 - pontos para somar a futuras notas, 1 - nota final.
+	@NotNull
 	@Column(name = "sum_or_finally")
 	private Boolean sumOrFinally;
 	
-	/* se sumOrFinally for definido como 0, este atributo será 0 e quando
-	 *	ele for usado em uma nota irá virar 1 e bloquear futuros usos.
-	 * 
+	/* *
+	 * Controla se os pontos lançados foram usados para complementar alguma nota
+	 * 0 - pode ser usada 
+	 * 1 - bloqueada
 	 */
+	//@JsonProperty(access = Access.READ_ONLY)
 	@Column(name = "sum_active")
-	private Boolean sumActive; 
+	private Boolean active; 
 	
 	
 	//______________RELATIONSHIP______________\\

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.education.event.ResourceCreateEvent;
 import com.education.model.score.TypeScore;
 import com.education.repository.TypeScoreRepository;
+import com.education.service.TypeScoreService;
 
 @RestController
 @RequestMapping("/typescore")
@@ -29,6 +30,7 @@ public class TypeScoreResource {
 
 	@Autowired private TypeScoreRepository repository;
 	@Autowired private ApplicationEventPublisher publisher;
+	@Autowired private TypeScoreService service;
 	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_GET_TYPE_SCORE) and #oauth2.hasScoe('read')")
@@ -40,7 +42,7 @@ public class TypeScoreResource {
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_POST_TYPE_SCORE') and #oauth2.hasScoe('write')")
 	public ResponseEntity<TypeScore> postTypeScore(@RequestBody @Valid TypeScore typeScore, HttpServletResponse response) {
-		TypeScore saved = repository.save(typeScore);
+		TypeScore saved = service.saving(typeScore);
 		
 		publisher.publishEvent(new ResourceCreateEvent(this, response, saved.getId()));
 		
