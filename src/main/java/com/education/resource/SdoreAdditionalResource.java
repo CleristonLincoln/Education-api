@@ -27,8 +27,10 @@ import com.education.repository.ScoreAdditionalRepository;
 @RequestMapping("scoreadditional")
 public class SdoreAdditionalResource {
 
+	
 	@Autowired private ScoreAdditionalRepository repository;
 	@Autowired private ApplicationEventPublisher publisher;
+	
 	
 	@GetMapping
 	public java.util.List<ScoreAdditional> getFilterScoreAdditional() {
@@ -44,6 +46,7 @@ public class SdoreAdditionalResource {
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}
+	
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
