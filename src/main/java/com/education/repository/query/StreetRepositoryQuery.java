@@ -13,4 +13,6 @@ public interface StreetRepositoryQuery {
 	
 	Page<StreetProjection> shortFilter(StreetFilter streetFilter, Pageable pageable);
 
+
+
 }

@@ -1,8 +1,11 @@
 package com.education.repository.query;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.education.DTO.StudentPerSchool;
 import com.education.model.people.Student;
 import com.education.repository.filter.StudentFilter;
 import com.education.repository.projection.StudentProjection;
@@ -15,6 +18,8 @@ public interface StudentRepositoryQuery {
 	
 	Page<StudentProjection> shortFilter(StudentFilter studentFilter, Pageable pageable);
 
-	Page<StudentProjectionShort> filterStudentsPerSchool(StudentFilter studentFilter, Pageable pageable);
+	List<StudentProjectionShort> filterStudentsPerSchool(Long id);
+
+	public List<StudentPerSchool> reportStudentSchool(Long id);
 
 }

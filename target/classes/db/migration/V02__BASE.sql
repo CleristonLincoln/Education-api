@@ -1,4 +1,3 @@
-
 CREATE TABLE school (
 	id BIGINT(11) AUTO_INCREMENT PRIMARY KEY,
 	name_school VARCHAR(100),

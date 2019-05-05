@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+Test set: com.education.EducationApiApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 15.705 s <<< FAILURE! - in com.education.EducationApiApplicationTests
+contextLoads(com.education.EducationApiApplicationTests)  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: 
+Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Validate failed: Migration checksum mismatch for migration version 02
+-> Applied to database : -1176296559
+-> Resolved locally    : -2032108877
+Caused by: org.flywaydb.core.api.FlywayException: 
+Validate failed: Migration checksum mismatch for migration version 02
+-> Applied to database : -1176296559
+-> Resolved locally    : -2032108877
+

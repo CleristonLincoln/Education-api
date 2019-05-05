@@ -16,10 +16,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
+import com.education.DTO.StudentPerSchool;
 import com.education.model.adress.City_;
 import com.education.model.adress.Neighborhood_;
 import com.education.model.adress.State_;
 import com.education.model.adress.Street_;
+import com.education.model.people.School_;
 import com.education.model.people.Student;
 import com.education.model.people.Student_;
 import com.education.repository.filter.StudentFilter;
@@ -90,7 +92,7 @@ public class StudentRepositoryImpl implements StudentRepositoryQuery {
 	}
 
 	@Override
-	public Page<StudentProjectionShort> filterStudentsPerSchool(StudentFilter studentFilter, Pageable pageable) {
+	public List<StudentProjectionShort> filterStudentsPerSchool(Long id) {
 
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<StudentProjectionShort> criteria = builder.createQuery(StudentProjectionShort.class);
@@ -102,13 +104,20 @@ public class StudentRepositoryImpl implements StudentRepositoryQuery {
 						root.get(Student_.id), 
 						root.get(Student_.name)));
 
-		Predicate[] predicates = createFilter(studentFilter, builder, root);
-		criteria.where(predicates);
+		
+		criteria.where(
+				builder.equal(
+						root.get(Student_.school)
+							.get(School_.id)
+						, id
+		));
+		
 
 		TypedQuery<StudentProjectionShort> query = manager.createQuery(criteria);
-		addPageRestrict(query, pageable);
-
-		return new PageImpl<>(query.getResultList(), pageable, total(studentFilter));
+		
+		
+		return query.getResultList();
+		
 	}
 
 	private Predicate[] createFilter(StudentFilter studentFilter, CriteriaBuilder builder, Root<Student> root) {
@@ -177,6 +186,36 @@ public class StudentRepositoryImpl implements StudentRepositoryQuery {
 		criteria.select(builder.count(root));
 
 		return manager.createQuery(criteria).getSingleResult();
+	}
+
+	@Override
+	public List<StudentPerSchool> reportStudentSchool(Long id) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<StudentPerSchool> criteria = builder.createQuery(StudentPerSchool.class);
+		
+		Root<Student> root = criteria.from(Student.class);
+		
+		criteria.select(
+				builder.construct(
+						StudentPerSchool.class
+						,root.get(Student_.id) 
+						,root.get(Student_.name)
+						,root.get(Student_.shortname)
+						
+						));
+		
+		criteria.where(
+				builder.equal(
+						root.join(Student_.school)
+							.get(School_.id)
+						, id
+		));
+		
+
+		TypedQuery<StudentPerSchool> query = manager.createQuery(criteria);
+		
+		
+		return query.getResultList();
 	}
 
 }
