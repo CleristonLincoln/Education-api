@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 /**
  * Identifica os tipos, se nota final ou pontos a serem somados
  * dando nome a nota como: avaliação final, trabalho de casa sobre tiradentes, etc...
+ * 
+ * Não será vinculado a uma lição especicica, possibilitando que seja usado pontos obtidos
+ * em uma lição em outra matéria.
  */
 @Data
 @AllArgsConstructor

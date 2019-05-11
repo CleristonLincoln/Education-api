@@ -105,6 +105,16 @@ public class Score {
 			joinColumns = @JoinColumn(name = "id_score"),
 			inverseJoinColumns = @JoinColumn(name = "id_score_additional"))
 	private List<ScoreAdditional> scoreAditional;
+	
+	/*
+	 * recebe uma lista de ids de pontos a serem adicionados a nota
+	 * a lista scoreAdditional será formada a partir dessa.
+	 */
+	@OneToMany
+	@JoinTable( name = "score_x_type_score",
+			joinColumns = @JoinColumn(name = "id_score"),
+			inverseJoinColumns = @JoinColumn(name = "id_type_score"))
+	private List<TypeScore> listTypeScoreAdditional;
 
 	@ManyToOne
 	@JoinColumn(name="id_type_score")

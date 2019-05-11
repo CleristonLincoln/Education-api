@@ -100,11 +100,11 @@ public class StudentRepositoryImpl implements StudentRepositoryQuery {
 
 		criteria.select(
 				builder.construct(
-						StudentProjectionShort.class, 
-						root.get(Student_.id), 
-						root.get(Student_.name)));
+						StudentProjectionShort.class
+							,root.get(Student_.id)
+							,root.get(Student_.name)
+		));
 
-		
 		criteria.where(
 				builder.equal(
 						root.get(Student_.school)

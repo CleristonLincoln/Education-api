@@ -13,6 +13,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(ScoreAdditional.class)
 public abstract class ScoreAdditional_ {
 
+	public static volatile SingularAttribute<ScoreAdditional, Integer> score;
 	public static volatile SingularAttribute<ScoreAdditional, Teacher> teacher;
 	public static volatile SingularAttribute<ScoreAdditional, Student> student;
 	public static volatile SingularAttribute<ScoreAdditional, School> school;

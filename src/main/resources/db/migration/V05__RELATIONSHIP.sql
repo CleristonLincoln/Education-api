@@ -47,3 +47,10 @@ CREATE TABLE score_x_score_additional (
 	FOREIGN KEY (id_score_additional) REFERENCES score_additional(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE score_x_type_score (
+	id_score BIGINT(11),
+	id_type_score BIGINT(11),
+	
+	FOREIGN KEY (id_score) REFERENCES score(id),
+	FOREIGN KEY (id_type_score) REFERENCES type_score(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

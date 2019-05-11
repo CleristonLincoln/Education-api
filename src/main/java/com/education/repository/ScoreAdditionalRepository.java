@@ -6,4 +6,7 @@ import com.education.model.score.ScoreAdditional;
 
 public interface ScoreAdditionalRepository extends JpaRepository<ScoreAdditional, Long>{
 
+	ScoreAdditional findByTypeScoreId(Long idTypeScore);
+
+
 }

@@ -71,8 +71,9 @@ CREATE TABLE score_semester_result (
 
 CREATE TABLE score_additional (
 	id BIGINT(11) AUTO_INCREMENT PRIMARY KEY,
+	score TINYINT(3),
 	date_score DATE,
-
+	
 	id_lesson BIGINT(11),
 	id_school BIGINT(11),
 	id_student BIGINT(11),

@@ -23,6 +23,7 @@ public abstract class Score_ {
 	public static volatile SingularAttribute<Score, Lesson> lesson;
 	public static volatile SingularAttribute<Score, Boolean> active;
 	public static volatile SingularAttribute<Score, ClassroomSchool> classroomSchool;
+	public static volatile ListAttribute<Score, TypeScore> listTypeScoreAdditional;
 	public static volatile SingularAttribute<Score, Integer> points;
 	public static volatile SingularAttribute<Score, Teacher> teacher;
 	public static volatile SingularAttribute<Score, School> school;

@@ -45,6 +45,8 @@ public class ScoreAdditional {
 	@Column(name = "date_score")
 	private LocalDate dateScore;
 	
+	private Integer score;
+	
 	
 	//__________RELATIONSHIP__________\\
 	

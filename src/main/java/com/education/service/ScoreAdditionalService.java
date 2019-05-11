@@ -1,60 +1,44 @@
 package com.education.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.education.model.score.ScoreAdditional;
+import com.education.repository.ScoreAdditionalRepository;
+import com.education.service.exception.LessonException;
+import com.education.service.exception.SchoolInexstOrInative;
+import com.education.service.exception.StudentInexixtentException;
+import com.education.service.exception.TeacherIsExist;
+import com.education.service.exception.TypeScoreException;
 
 @Service
 public class ScoreAdditionalService {
+	
+	@Autowired private ScoreAdditionalRepository repository;
 
 	public ScoreAdditional saving(ScoreAdditional scoreAdditional) {
 
-		Long idStudent = scoreAdditional.getStudent().getId();
-		Long idLesson = scoreAdditional.getLesson().getId();
-		Long idTeacher = scoreAdditional.getTeacher().getId();
-		Long idTypeScore = scoreAdditional.getTypeScore().getId();
-		Long idSchool = scoreAdditional.getSchool().getId();
+		if (scoreAdditional.getStudent().getId() == null)
+			throw new StudentInexixtentException();
 		
-		validIfStudentExist(idStudent);
-		validIfLessonExist(idLesson);
-		validIfTeacherExist(idTeacher);
-		valisIfTeacherLesson(idLesson, idTeacher);
-		validIfTypeScoreSxist(idTypeScore);
-		validIfSchoolExist(idSchool);
+		if (scoreAdditional.getLesson().getId() == null)
+			throw new LessonException();
 		
-		return null;
+		if (scoreAdditional.getTeacher().getId() == null)
+			throw new TeacherIsExist();
+			
+		if (scoreAdditional.getTypeScore().getId() == null)
+			throw new TypeScoreException();
+			
+		if (scoreAdditional.getSchool().getId() == null)
+			throw new SchoolInexstOrInative();
+
+		
+		return repository.save(scoreAdditional);
 	}
 
-	private void validIfSchoolExist(Long idSchool) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void validIfTypeScoreSxist(Long idTypeScore) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void valisIfTeacherLesson(Long idLesson, Long idTeacher) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void validIfTeacherExist(Long idTeacher) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void validIfLessonExist(Long idLesson) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void validIfStudentExist(Long idStudent) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
+	
 	
 	
 }
