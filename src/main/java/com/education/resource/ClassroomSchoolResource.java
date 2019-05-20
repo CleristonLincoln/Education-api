@@ -24,7 +24,6 @@ import com.education.model.ClassroomSchool;
 import com.education.repository.ClassroomSchoolRepository;
 import com.education.repository.filter.ClassroomSchoolFilter;
 import com.education.repository.projection.ClassroomSchoolProjection;
-import com.education.repository.projection.ClassroomSchoolStudentProjection;
 import com.education.service.ClassroomSchoolService;
 
 @RestController
@@ -52,12 +51,6 @@ public class ClassroomSchoolResource {
 	}
 	
 	
-	@GetMapping(params = "student")
-	public Page<ClassroomSchoolStudentProjection> getMethodName(ClassroomSchoolFilter classroomSchoolFilter, Pageable pageable) {
-		return repository.filterClassroomSchoolStudent(classroomSchoolFilter, pageable);
-	}
-
-
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_POST_CLASSROOM_SCOOL') and #oauth2.hasScope('write')")
 	public ResponseEntity<ClassroomSchool> postEntity(@Valid @RequestBody ClassroomSchool classroomSchool,
@@ -73,7 +66,5 @@ public class ClassroomSchoolResource {
 	public void deleteClassroomSchool(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
-
-	
 	
 }

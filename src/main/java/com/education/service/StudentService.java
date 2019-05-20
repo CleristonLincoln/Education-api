@@ -44,7 +44,7 @@ public class StudentService {
 		
 		validCpfIsExist(student); // valida se cpf duplicado
 		validRgIsExist(student); // valida se rg duplicado
-		validIsSchoolExist(student);
+		validIsSchoolExist(student);  // valida se escola exist
 		
 		return repository.save(student);
 	}

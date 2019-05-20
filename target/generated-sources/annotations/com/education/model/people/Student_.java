@@ -1,5 +1,6 @@
 package com.education.model.people;
 
+import com.education.model.ClassroomSchool;
 import com.education.model.adress.City;
 import com.education.model.adress.Street;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public abstract class Student_ {
 	public static volatile SingularAttribute<Student, String> phone2;
 	public static volatile SingularAttribute<Student, Boolean> active;
 	public static volatile SingularAttribute<Student, String> shortname;
+	public static volatile SingularAttribute<Student, ClassroomSchool> classroomSchool;
 	public static volatile SingularAttribute<Student, String> phone1;
 	public static volatile SingularAttribute<Student, String> numberHome;
 	public static volatile SingularAttribute<Student, String> complementHome;

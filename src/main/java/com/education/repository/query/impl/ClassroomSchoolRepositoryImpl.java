@@ -20,11 +20,9 @@ import com.education.model.ClassroomSchool;
 import com.education.model.ClassroomSchool_;
 import com.education.model.Classroom_;
 import com.education.model.people.School_;
-import com.education.model.people.Student_;
 import com.education.model.score.SchoolYear_;
 import com.education.repository.filter.ClassroomSchoolFilter;
 import com.education.repository.projection.ClassroomSchoolProjection;
-import com.education.repository.projection.ClassroomSchoolStudentProjection;
 import com.education.repository.query.ClassroomSchoolRepositoryQuery;
 
 public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQuery {
@@ -77,31 +75,6 @@ public class ClassroomSchoolRepositoryImpl implements ClassroomSchoolRepositoryQ
 	}
 	
 	
-	@Override
-	public Page<ClassroomSchoolStudentProjection> filterClassroomSchoolStudent(
-			ClassroomSchoolFilter classroomSchoolFilter, Pageable pageable) {
-		
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<ClassroomSchoolStudentProjection> criteria = builder.createQuery(ClassroomSchoolStudentProjection.class);
-		Root<ClassroomSchool> root = criteria.from(ClassroomSchool.class);
-		
-		criteria.select(builder.construct(
-					ClassroomSchoolStudentProjection.class
-					, root.join(ClassroomSchool_.student).get(Student_.id)
-					, root.join(ClassroomSchool_.student).get(Student_.name)
-				
-				));
-		
-		Predicate[] predicates = createFilter(builder, root, classroomSchoolFilter);
-		criteria.where(predicates);
-		
-		TypedQuery<ClassroomSchoolStudentProjection> query = manager.createQuery(criteria);
-		addPageRestrict(query, pageable);
-		
-		return new PageImpl<>(query.getResultList(), pageable, total(classroomSchoolFilter));
-	}
-
-
 	private Predicate[] createFilter(CriteriaBuilder builder, Root<ClassroomSchool> root, ClassroomSchoolFilter classroomSchoolFilter) {
 		
 		List<Predicate> predicates = new ArrayList<>();

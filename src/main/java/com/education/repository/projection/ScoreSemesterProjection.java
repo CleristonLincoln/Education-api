@@ -2,11 +2,9 @@ package com.education.repository.projection;
 
 import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter  @Setter 
+@Getter  
 public class ScoreSemesterProjection {
 
 	private Long id;

@@ -51,7 +51,7 @@ CREATE TABLE school_calendar (
 	date_finish DATE,
 	topic VARCHAR(255),
 	
-	id_school BIGINT(11),
+	id_school INT,
 	
 	FOREIGN KEY (id_school) REFERENCES school(id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8mb4;

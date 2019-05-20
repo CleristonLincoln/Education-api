@@ -1,6 +1,5 @@
 package com.education.repository.query.impl;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +74,7 @@ public class ScoreSemesterRepositoryImpl implements ScoreSemesterRepositoryQuery
 		
 		Predicate[] predicates = createFilter(scoreSemesterFilter, builder, root);
 		criteria.where(predicates);
+		
 		
 		TypedQuery<ScoreSemesterProjection> query = manager.createQuery(criteria);
 		addPageRestrict(query, pageable);

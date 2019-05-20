@@ -36,7 +36,9 @@ public class Presence {
 	@Column(name="situation")
 	private SituationPresence situation;
 	
+	
 	//______________RELATIONSHIP______________\\
+	
 	
 	@ManyToOne
 	@JoinColumn(name="id_student")

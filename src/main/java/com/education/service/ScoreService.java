@@ -22,21 +22,24 @@ public class ScoreService {
 	public Score saveScore(Score score) {
 
 		// inclui os pontos a serem somados a nota
-		includePonts(score);
+		includePoints(score);
 
 		Long idStudent = score.getStudent().getId();
 
 		return repository.save(score);
 	}
 
-	
-	private void includePonts(Score score) {
-		Integer ponts;
+	private void includePoints(Score score) {
+
+		Integer ponts = 0;
 
 		List<TypeScore> idsScoreAdditional = score.getListTypeScoreAdditional();
 
+        //		se a lista for vazia insere 0 aos pontos
 		if (idsScoreAdditional == null) {
+		
 			score.setPoints(0);
+	
 		} else {
 
 			for (TypeScore typeScore : idsScoreAdditional) {

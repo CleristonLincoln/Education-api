@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.education.model.ClassroomSchool;
 import com.education.model.adress.City;
 import com.education.model.adress.Street;
 
@@ -103,6 +104,13 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name = "id_school")
 	private School school;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_classroomSchool")
+	private ClassroomSchool classroomSchool;
+	
+	
+	
 
 	public Long getId() {
 		return id;
